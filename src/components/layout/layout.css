@@ -1,0 +1,382 @@
+/* ========== APP SHELL ========== */
+.app-shell {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.app-main {
+  flex: 1;
+  width: 100%;
+  /* content is centered to this width; full-bleed backgrounds still reach edges */
+  --content-max: 1160px;
+  --gutter: 24px;
+  padding: 0;
+}
+
+.page-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding-bottom: 56px;
+}
+
+/* Normal (constrained) page blocks: centered, capped width, with gutters */
+.page-wrap > .info,
+.page-wrap > .worlds-page,
+.page-wrap > .shiny-page,
+.page-wrap > .secret-page {
+  width: 100%;
+  max-width: var(--content-max);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+/* Calculators keep their own narrow max-width; just center + add top space */
+.page-wrap > .calc,
+.page-wrap > .molten-calc {
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+  margin-top: 40px;
+}
+
+/* Molten card IS the card itself — no inner gutter, so the hero photo
+   reaches the card edges */
+.page-wrap > .molten-calc {
+  padding-inline: 0;
+}
+
+/* Full-bleed blocks: background spans the whole width, inner content stays
+   aligned to the same centered container as everything else. */
+.page-header,
+.boosts-panel {
+  width: 100%;
+}
+.page-header > *,
+.boosts-panel > * {
+  width: 100%;
+  max-width: var(--content-max);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+/* ===== Shared page header (icon tile + gradient) ===== */
+.page-header {
+  padding-block: 24px;
+  background:
+    radial-gradient(120% 140% at 0% 0%, color-mix(in srgb, var(--accent) 22%, transparent), transparent 60%),
+    linear-gradient(135deg, color-mix(in srgb, var(--accent) 12%, var(--surface-2)), var(--surface-2));
+}
+.page-header-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.page-header-icon {
+  flex-shrink: 0;
+  width: 52px;
+  height: 52px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 14px;
+  color: var(--accent-contrast);
+  background: linear-gradient(150deg, var(--accent), var(--accent-2));
+  box-shadow: 0 6px 20px -6px color-mix(in srgb, var(--accent) 70%, transparent);
+}
+.page-header-text { min-width: 0; }
+.page-header-title {
+  font-size: 1.6em;
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+  color: var(--text);
+}
+.page-header-desc {
+  margin-top: 4px;
+  color: var(--text-secondary);
+  font-size: 0.92em;
+  line-height: 1.45;
+}
+
+/* ========== TOP BAR ========== */
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: var(--bg);
+  border-bottom: 1px solid var(--border);
+}
+
+.topbar-inner {
+  height: var(--topbar-h);
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 0 40px;
+}
+
+/* Left spacer balances the right controls so nav stays centered */
+.topbar-spacer {
+  flex: 1;
+  padding-left: 8px;
+}
+
+/* Desktop nav — centered */
+.topnav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  flex-shrink: 0;
+}
+
+.topnav-item {
+  position: relative;
+}
+
+.topnav-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 12px;
+  border: none;
+  border-radius: var(--radius);
+  background: transparent;
+  color: var(--text-secondary);
+  font-weight: 500;
+  font-size: 0.92em;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+.topnav-btn:hover {
+  background: var(--surface-hover);
+  color: var(--text);
+}
+.topnav-btn.active {
+  color: var(--text);
+}
+.topnav-btn .caret {
+  opacity: 0.5;
+  transform: rotate(90deg);
+}
+
+.topnav-menu {
+  position: absolute;
+  top: calc(100% + 10px);
+  left: 50%;
+  transform: translate(-50%, -6px);
+  min-width: 230px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 6px;
+  box-shadow: 0 12px 32px var(--shadow);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-6px);
+  transition: opacity 0.15s ease, transform 0.15s ease, visibility 0.15s;
+}
+.topnav-item.open .topnav-menu {
+  opacity: 1;
+  visibility: visible;
+  transform: translate(-50%, 0);
+}
+
+.topnav-link {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 11px;
+  border-radius: 8px;
+  color: var(--text-secondary);
+  font-weight: 500;
+  font-size: 0.92em;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+.topnav-link:hover {
+  background: var(--surface-hover);
+  color: var(--text);
+}
+.topnav-link.active {
+  background: var(--accent);
+  color: var(--accent-contrast);
+}
+.topnav-link.active svg {
+  color: var(--accent-contrast);
+}
+
+/* Right controls: theme + language — part of the same menu */
+.topbar-right {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 6px;
+  flex: 1;
+  padding-right: 8px;
+}
+
+.icon-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  border: none;
+  border-radius: var(--radius);
+  background: transparent;
+  color: var(--text-secondary);
+  transition: background 0.15s ease, color 0.15s ease;
+}
+.icon-btn:hover {
+  background: var(--surface-hover);
+  color: var(--text);
+}
+
+/* Language dropdown */
+.lang-dd {
+  position: relative;
+}
+.lang-dd-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  height: 38px;
+  padding: 0 10px;
+  border: none;
+  border-radius: var(--radius);
+  background: transparent;
+  color: var(--text-secondary);
+  font-weight: 600;
+  font-size: 0.82em;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+.lang-dd-btn:hover {
+  background: var(--surface-hover);
+  color: var(--text);
+}
+.lang-dd-caret {
+  opacity: 0.5;
+  transform: rotate(90deg);
+}
+.lang-dd-menu {
+  position: absolute;
+  top: calc(100% + 6px);
+  right: 0;
+  min-width: 72px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 4px;
+  box-shadow: 0 12px 32px var(--shadow);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-6px);
+  transition: opacity 0.15s ease, transform 0.15s ease, visibility 0.15s;
+}
+.lang-dd.open .lang-dd-menu {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+.lang-dd-item {
+  display: block;
+  width: 100%;
+  text-align: center;
+  padding: 7px 10px;
+  border: none;
+  border-radius: 6px;
+  background: transparent;
+  color: var(--text-secondary);
+  font-weight: 600;
+  font-size: 0.82em;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+.lang-dd-item + .lang-dd-item {
+  margin-top: 2px;
+}
+.lang-dd-item:hover {
+  background: var(--surface-hover);
+  color: var(--text);
+}
+.lang-dd-item.active {
+  background: var(--accent);
+  color: var(--accent-contrast);
+}
+
+/* Mobile */
+.mobile-btn {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: transparent;
+  color: var(--text);
+}
+
+.mobile-drawer {
+  display: none;
+  flex-direction: column;
+  gap: 18px;
+  padding: 18px 24px 24px;
+  border-top: 1px solid var(--border);
+  background: var(--bg);
+}
+.mobile-group {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.mobile-group-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 4px;
+  color: var(--text-secondary);
+  font-size: 0.78em;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+.mobile-link {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 12px;
+  border-radius: var(--radius);
+  color: var(--text-secondary);
+  font-weight: 500;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+.mobile-link:hover {
+  background: var(--surface-hover);
+  color: var(--text);
+}
+.mobile-link.active {
+  background: var(--accent);
+  color: var(--accent-contrast);
+}
+
+/* ========== RESPONSIVE ========== */
+@media (max-width: 860px) {
+  .topnav {
+    display: none;
+  }
+  .mobile-btn {
+    display: inline-flex;
+  }
+  .app-main {
+    --gutter: 16px;
+  }
+  .page-header {
+    padding-block: 18px;
+  }
+}
+
+@media (min-width: 861px) {
+  .mobile-drawer {
+    display: none !important;
+  }
+}

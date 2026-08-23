@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arm Helper</title>
+
+    <script>
+        // Apply saved theme before first paint to avoid a flash
+        (function() {
+            var t = localStorage.getItem('armHelper_theme');
+            document.documentElement.setAttribute('data-theme', t === 'light' ? 'light' : 'dark');
+        })();
+    </script>
+
+    <link rel="icon" type="image/png" sizes="32x32" href="system/favicon_roblox_info.png">
+
+    <link rel="stylesheet" href="system/general.css">
+    <link rel="stylesheet" href="system/moderation/menu_manager.css">
+    <link rel="stylesheet" href="system/system_content/system_content.css">
+</head>
+<body>
+    <div id="app-content"></div>
+    <div class="signature">2025 PROJECT NOT UPDATING NOW</div>
+
+    <!-- Core System Scripts (order matters) -->
+    <script src="system/general.js" defer></script>
+    <script src="system/colors.js" defer></script>
+    <script src="system/url.js" defer></script>
+    <script src="system/loader.js" defer></script>
+</body>
+</html>

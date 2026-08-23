@@ -1,0 +1,77 @@
+{
+    "en": {
+        "menu": {
+            "awsCategory": "AWS",
+            "systemCategory": "System",
+            "calculator": "Calculators",
+            "info": "Info",
+            "pages": {
+                "calculator": "Pet Calculator",
+                "arm": "Arm Calculator",
+                "grind": "Grind Calculator",
+                "roulette": "Roulette Calculator",
+                "boss": "Boss Calculator",
+                "boosts": "Boosts",
+                "shiny": "Shiny Stats",
+                "secret": "Secret Pets",
+                "codes": "Codes",
+                "aura": "Aura",
+                "trainer": "Trainer",
+                "charms": "Charms",
+                "worlds": "Worlds",
+                "help": "Help",
+                "peoples": "Peoples"
+            }
+        }
+    },
+    "uk": {
+        "menu": {
+            "awsCategory": "AWS",
+            "systemCategory": "Система",
+            "calculator": "Калькулятори",
+            "info": "Інформація",
+            "pages": {
+                "calculator": "Калькулятор Тварин",
+                "arm": "Калькулятор Сили",
+                "grind": "Калькулятор Прокачки",
+                "roulette": "Калькулятор Рулетки",
+                "boss": "Калькулятор Босів",
+                "boosts": "Буст",
+                "shiny": "Статистика Шайні",
+                "secret": "Секретні Тварини",
+                "codes": "Коди",
+                "aura": "Аура",
+                "trainer": "Тренер",
+                "charms": "Чари",
+                "worlds": "Світи",
+                "help": "Допомога",
+                "peoples": "Подяки"
+            }
+        }
+    },
+    "ru": {
+        "menu": {
+            "awsCategory": "AWS",
+            "systemCategory": "Система",
+            "calculator": "Калькуляторы",
+            "info": "Информация",
+            "pages": {
+                "calculator": "Калькулятор Питомцев",
+                "arm": "Калькулятор Силы",
+                "grind": "Калькулятор Прокачки",
+                "roulette": "Калькулятор Рулетки",
+                "boss": "Калькулятор Боссов",
+                "boosts": "Бусты",
+                "shiny": "Статистика Шайни",
+                "secret": "Секретные Питомцы",
+                "codes": "Коды",
+                "aura": "Аура",
+                "trainer": "Тренер",
+                "charms": "Чары",
+                "worlds": "Миры",
+                "help": "Помощь",
+                "peoples": "Благодарности"
+            }
+        }
+    }
+}

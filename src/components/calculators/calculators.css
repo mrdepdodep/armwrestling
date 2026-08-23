@@ -1,0 +1,534 @@
+/* Narrow, centered, top-aligned within the page */
+.calc {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 18px;
+  align-items: start;
+  width: 100%;
+  max-width: 940px;
+  margin: 0 auto;
+}
+
+/* Calculators without a settings panel: single centered column */
+.calc.calc-single {
+  max-width: 520px;
+  grid-template-columns: minmax(0, 1fr);
+}
+
+/* ===== LEFT: description + input + output ===== */
+.calc-left {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  background: var(--surface-2);
+  border-radius: 16px;
+  box-shadow: 0 10px 40px var(--shadow);
+  overflow: hidden;
+}
+
+.calc-desc {
+  padding: 28px 28px 6px;
+  color: var(--text-secondary);
+  font-size: 0.95em;
+  line-height: 1.55;
+  text-align: center;
+}
+
+.calc-field {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 18px 28px;
+}
+.calc-left > .calc-field:first-child {
+  padding-top: 26px;
+}
+.calc .field-label {
+  text-align: center;
+}
+.calc .input {
+  border: none;
+  background: var(--surface-hover);
+  text-align: center;
+  transition: box-shadow 0.15s ease;
+}
+.calc .input:focus {
+  box-shadow: 0 0 0 2px var(--accent);
+}
+
+/* ===== Custom themed dropdown ===== */
+.select {
+  position: relative;
+  width: 100%;
+}
+.select-trigger {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  padding: 13px 16px;
+  border: none;
+  border-radius: var(--radius);
+  background: var(--surface-hover);
+  color: var(--text);
+  font-size: 1em;
+  cursor: pointer;
+  transition: box-shadow 0.15s ease;
+}
+.select-trigger:hover {
+  box-shadow: 0 0 0 1px var(--accent);
+}
+.select.open .select-trigger {
+  box-shadow: 0 0 0 2px var(--accent);
+}
+.select-caret {
+  color: var(--text-secondary);
+  transition: transform 0.18s ease;
+  flex-shrink: 0;
+}
+.select.open .select-caret {
+  transform: rotate(180deg);
+}
+
+.select-menu {
+  position: absolute;
+  z-index: 50;
+  top: calc(100% + 8px);
+  left: 0;
+  right: 0;
+  padding: 6px;
+  border-radius: 14px;
+  background: var(--surface-2);
+  box-shadow: 0 12px 40px var(--shadow);
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  animation: select-in 0.14s ease;
+}
+@keyframes select-in {
+  from { opacity: 0; transform: translateY(-6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.select-option {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  width: 100%;
+  padding: 11px 14px;
+  border: none;
+  border-radius: 10px;
+  background: transparent;
+  color: var(--text-secondary);
+  font-size: 0.95em;
+  text-align: left;
+  cursor: pointer;
+  transition: background 0.12s ease, color 0.12s ease;
+}
+.select-option:hover {
+  background: var(--surface-hover);
+  color: var(--text);
+}
+.select-option.active {
+  background: var(--accent);
+  color: var(--accent-contrast);
+  font-weight: 600;
+}
+
+/* Inline setting row (used when there's only one option — no separate panel) */
+.calc-inline-setting {
+  margin: 0 28px 4px;
+  padding: 16px 18px;
+  border-radius: 12px;
+  background: var(--surface-hover);
+}
+
+.calc-error {
+  color: var(--danger);
+  font-weight: 500;
+  font-size: 0.9em;
+  padding: 0 28px 18px;
+  text-align: center;
+}
+
+/* Output block: pinned to the bottom of the left region, accent-tinted */
+.calc-output {
+  margin-top: auto;
+  padding: 28px 24px;
+  text-align: center;
+  background: color-mix(in srgb, var(--accent) 12%, var(--surface-2));
+}
+.calc-output .label {
+  color: var(--text-secondary);
+  font-weight: 600;
+  font-size: 0.78em;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: 10px;
+}
+.calc-output .result-value {
+  font-size: 2.6em;
+  font-weight: 800;
+  line-height: 1.1;
+  color: var(--accent);
+  word-break: break-word;
+}
+
+/* ===== RIGHT: settings ===== */
+.calc-settings {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  background: var(--surface-2);
+  border-radius: 16px;
+  box-shadow: 0 10px 40px var(--shadow);
+  overflow: hidden;
+}
+.calc-settings-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 18px 20px;
+  font-weight: 600;
+  font-size: 0.95em;
+  background: var(--surface-hover);
+}
+
+.settings-group + .settings-group {
+  margin-top: 4px;
+}
+/* Collapsible header */
+.settings-group-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  width: 100%;
+  padding: 16px 20px;
+  border: none;
+  background: transparent;
+  text-align: left;
+  transition: background 0.15s ease;
+}
+.settings-group-head:hover {
+  background: var(--surface-hover);
+}
+.settings-group-label {
+  display: block;
+  font-size: 0.78em;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-secondary);
+}
+.settings-group-caret {
+  color: var(--text-secondary);
+  transition: transform 0.15s ease;
+}
+.settings-group.open .settings-group-caret {
+  transform: rotate(90deg);
+}
+.settings-group-body {
+  padding: 2px 20px 18px;
+}
+
+.calc-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.option-btn {
+  padding: 9px 14px;
+  border: none;
+  border-radius: var(--radius);
+  background: var(--surface-hover);
+  color: var(--text-secondary);
+  font-weight: 500;
+  font-size: 0.88em;
+  transition: background 0.15s ease, color 0.15s ease, transform 0.1s ease;
+}
+.option-btn:hover {
+  background: var(--surface);
+  color: var(--text);
+}
+.option-btn.active {
+  background: var(--accent);
+  color: var(--accent-contrast);
+}
+.option-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* Tier colouring by multiplier strength (low → high), shown as a color chip on the left */
+.option-btn[data-tier] {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+.option-btn[data-tier]::before {
+  content: '';
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--tier-color, var(--text-secondary));
+  flex-shrink: 0;
+}
+.option-btn.tier-1 { --tier-color: #6b7280; }
+.option-btn.tier-2 { --tier-color: #2ecc71; }
+.option-btn.tier-3 { --tier-color: #3b9dff; }
+.option-btn.tier-4 { --tier-color: #a970ff; }
+.option-btn.tier-5 { --tier-color: #f5b301; }
+.option-btn[data-tier] .muted { color: var(--tier-color); }
+
+/* Active state overrides tier colouring */
+.option-btn.active::before {
+  background: var(--accent-contrast);
+}
+.option-btn.active .muted {
+  color: rgba(255, 255, 255, 0.75);
+}
+
+/* Toggle switch rows */
+.switch-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 4px 0;
+}
+.switch-row + .switch-row {
+  margin-top: 4px;
+}
+.switch-row-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+.switch-row-name {
+  font-weight: 500;
+  font-size: 0.92em;
+}
+.switch-row-sub {
+  color: var(--text-secondary);
+  font-size: 0.82em;
+}
+
+/* The switch itself */
+.switch {
+  position: relative;
+  flex-shrink: 0;
+  width: 40px;
+  height: 22px;
+  cursor: pointer;
+}
+.switch input {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+.switch-track {
+  position: absolute;
+  inset: 0;
+  border-radius: 999px;
+  background: var(--surface);
+  transition: background 0.15s ease;
+}
+.switch-track::after {
+  content: '';
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--text-secondary);
+  transition: transform 0.15s ease, background 0.15s ease;
+}
+.switch input:checked + .switch-track {
+  background: var(--accent);
+}
+.switch input:checked + .switch-track::after {
+  transform: translateX(18px);
+  background: var(--accent-contrast);
+}
+
+/* Counter (friend boost) */
+.counter {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+.counter-btn {
+  width: 34px;
+  height: 34px;
+  border: none;
+  border-radius: var(--radius);
+  background: var(--surface-hover);
+  color: var(--text);
+  font-size: 1.1em;
+  line-height: 1;
+  transition: background 0.15s ease;
+}
+.counter-btn:hover:not(:disabled) {
+  background: var(--surface);
+}
+.counter-btn:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+.counter-value {
+  min-width: 48px;
+  text-align: center;
+  font-weight: 600;
+}
+
+/* Shared table (secret rewards etc.) */
+.calc-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+.calc-table th,
+.calc-table td {
+  padding: 12px 14px;
+  text-align: left;
+}
+.calc-table th {
+  color: var(--text-secondary);
+  font-size: 0.8em;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+.calc-table tr + tr td {
+  box-shadow: inset 0 1px 0 var(--surface-hover);
+}
+
+@media (max-width: 820px) {
+  .calc {
+    grid-template-columns: minmax(0, 480px);
+    min-height: 0;
+    margin: 24px auto;
+  }
+}
+
+/* ===== MOLTEN MACHINE CALCULATOR ===== */
+.molten-calc {
+  /* All inner text sizes are in em, so this shrinks the text by 10% */
+  font-size: 0.9em;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 486px;
+  margin: 0 auto;
+  background: var(--surface-2);
+  border-radius: 18px;
+  box-shadow: 0 14px 44px -12px var(--shadow);
+  overflow: hidden;
+}
+
+/* Hero with the machine art on the background */
+.molten-hero {
+  position: relative;
+  /* +10% taller than the previous 176px */
+  min-height: 194px;
+  overflow: hidden;
+  border-top-left-radius: 18px;
+  border-top-right-radius: 18px;
+}
+/* Lazy-loaded photo layer filling the hero */
+.molten-hero-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 30%;
+}
+.molten-hero-overlay {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: 8px;
+  height: 100%;
+  min-height: inherit;
+  padding: 22px 24px;
+  border-top-left-radius: 18px;
+  border-top-right-radius: 18px;
+  background:
+    linear-gradient(180deg, rgba(6, 6, 9, 0.15) 0%, rgba(6, 6, 9, 0.55) 55%, rgba(6, 6, 9, 0.92) 100%),
+    linear-gradient(90deg, color-mix(in srgb, var(--accent) 24%, transparent), transparent 70%);
+}
+.molten-hero-title {
+  font-size: 1.7em;
+  font-weight: 800;
+  line-height: 1.05;
+  color: #fff;
+  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.7);
+}
+.molten-hero-desc {
+  max-width: 38ch;
+  color: rgba(255, 255, 255, 0.82);
+  font-size: 0.88em;
+  line-height: 1.45;
+  text-shadow: 0 1px 8px rgba(0, 0, 0, 0.7);
+}
+
+.molten-body {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  padding: 22px 24px 24px;
+}
+.molten-body .calc-field {
+  padding: 0;
+  gap: 8px;
+}
+
+.molten-result {
+  padding: 20px 22px 22px;
+  border-radius: 14px;
+  background: color-mix(in srgb, var(--accent) 12%, var(--surface-2));
+}
+.molten-flow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  color: var(--text-secondary);
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+.molten-flow-base { font-size: 1.15em; color: var(--text); }
+.molten-flow-arrow { color: var(--text-secondary); opacity: 0.6; }
+.molten-flow-op {
+  font-size: 0.95em;
+  color: var(--accent);
+  font-weight: 800;
+}
+.molten-out {
+  margin-top: 14px;
+  text-align: center;
+}
+.molten-out-label {
+  color: var(--text-secondary);
+  font-weight: 600;
+  font-size: 0.75em;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 6px;
+}
+.molten-out-value {
+  font-size: 2.9em;
+  font-weight: 800;
+  line-height: 1.05;
+  background: linear-gradient(90deg, var(--accent), var(--accent-2));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  word-break: break-word;
+}

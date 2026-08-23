@@ -1,0 +1,101 @@
+.welcome {
+  min-height: calc(100vh - var(--topbar-h));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 24px 80px;
+  background:
+    radial-gradient(60% 50% at 50% 30%, color-mix(in srgb, var(--accent) 10%, transparent), transparent 70%);
+}
+
+.welcome-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  max-width: 640px;
+}
+
+.welcome-badge {
+  padding: 8px 18px;
+  border-radius: 999px;
+  background: var(--surface-2);
+  color: var(--text-secondary);
+  font-size: 0.75em;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+}
+
+.welcome-title {
+  margin-top: 26px;
+  font-size: clamp(2.4em, 6vw, 4em);
+  font-weight: 800;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  color: var(--text);
+}
+
+.welcome-desc {
+  margin-top: 20px;
+  color: var(--text-secondary);
+  font-size: 1.05em;
+  line-height: 1.6;
+  max-width: 46ch;
+}
+
+.welcome-cta {
+  margin-top: 32px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 14px 34px;
+  border-radius: 999px;
+  font-weight: 700;
+  font-size: 1em;
+  color: var(--accent-contrast);
+  background: linear-gradient(90deg, var(--accent), var(--accent-2));
+  box-shadow: 0 10px 30px -10px color-mix(in srgb, var(--accent) 70%, transparent);
+  transition: transform 0.12s ease, box-shadow 0.12s ease;
+}
+.welcome-cta:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 36px -10px color-mix(in srgb, var(--accent) 75%, transparent);
+}
+
+.welcome-stats {
+  margin-top: 48px;
+  display: flex;
+  align-items: stretch;
+  padding: 6px;
+  border-radius: 18px;
+  background: var(--surface-2);
+}
+.welcome-stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 16px 34px;
+}
+.welcome-stat + .welcome-stat {
+  border-left: 1px solid var(--border);
+}
+.welcome-stat-num {
+  font-size: 1.9em;
+  font-weight: 800;
+  color: var(--text);
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+}
+.welcome-stat-label {
+  font-size: 0.68em;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--text-secondary);
+}
+
+@media (max-width: 560px) {
+  .welcome-stat { padding: 14px 20px; }
+}
