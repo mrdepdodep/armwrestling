@@ -677,6 +677,14 @@
 .media-card .body .title {
   font-weight: 700;
 }
+.media-card .body .charm-exclusive {
+  align-self: flex-start;
+  font-weight: 800;
+  font-size: 0.78em;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #f5a623;
+}
 .media-card .body .sub {
   color: var(--text-secondary);
   font-size: 0.9em;

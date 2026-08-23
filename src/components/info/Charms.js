@@ -31,7 +31,17 @@ export default function Charms() {
               )}
               <div className="body">
                 <span className="title">{name}</span>
+                {c.exclusive && (
+                  <span className="charm-exclusive">
+                    {t.exclusiveLabel || 'Exclusive'}
+                  </span>
+                )}
                 <span className="sub">{desc}</span>
+                {c.maxStack != null && (
+                  <span className="chip" style={{ alignSelf: 'flex-start' }}>
+                    {t.maxStackLabel || t.maxStockLabel} {c.maxStack}%
+                  </span>
+                )}
                 {c.maxStock != null && (
                   <span className="chip" style={{ alignSelf: 'flex-start' }}>
                     {t.maxStockLabel} {c.maxStock}

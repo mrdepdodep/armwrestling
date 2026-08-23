@@ -133,6 +133,48 @@
         "icon": "🛕",
         "description": "Єгипетська удача | Подія піщаної бурі (x2)",
         "details": "Щоб перейти в Світ 21, потрібно перемогти 'Gold Champion'"
+      },
+      {
+        "title": "Світ 22: Дикий Захід",
+        "icon": "🤠",
+        "description": "",
+        "details": ""
+      },
+      {
+        "title": "Світ 23: Планета Зорп",
+        "icon": "🪐",
+        "description": "",
+        "details": ""
+      },
+      {
+        "title": "Світ 24: Таверна чарівників",
+        "icon": "🧙",
+        "description": "",
+        "details": ""
+      },
+      {
+        "title": "Світ 25: Острови цвітіння",
+        "icon": "🌺",
+        "description": "",
+        "details": ""
+      },
+      {
+        "title": "Світ 26: Техно-острови",
+        "icon": "🖥️",
+        "description": "",
+        "details": ""
+      },
+      {
+        "title": "Світ 27: Бухта Атлантиди",
+        "icon": "🔱",
+        "description": "",
+        "details": ""
+      },
+      {
+        "title": "Світ 28: Джунглі",
+        "icon": "🌴",
+        "description": "",
+        "details": ""
       }
     ]
   },
@@ -270,6 +312,48 @@
         "icon": "🛕",
         "description": "Египетская удача | Событие песчаной бури (x2)",
         "details": "Чтобы перейти в Мир 21, нужно победить 'Gold Champion'"
+      },
+      {
+        "title": "Мир 22: Дикий Запад",
+        "icon": "🤠",
+        "description": "",
+        "details": ""
+      },
+      {
+        "title": "Мир 23: Планета Зорп",
+        "icon": "🪐",
+        "description": "",
+        "details": ""
+      },
+      {
+        "title": "Мир 24: Таверна волшебников",
+        "icon": "🧙",
+        "description": "",
+        "details": ""
+      },
+      {
+        "title": "Мир 25: Острова цветения",
+        "icon": "🌺",
+        "description": "",
+        "details": ""
+      },
+      {
+        "title": "Мир 26: Техно-острова",
+        "icon": "🖥️",
+        "description": "",
+        "details": ""
+      },
+      {
+        "title": "Мир 27: Бухта Атлантиды",
+        "icon": "🔱",
+        "description": "",
+        "details": ""
+      },
+      {
+        "title": "Мир 28: Джунгли",
+        "icon": "🌴",
+        "description": "",
+        "details": ""
       }
     ]
   },
@@ -407,6 +491,48 @@
         "icon": "🛕",
         "description": "Egyptian fortune | Sandstorm event (x2)",
         "details": "To advance to World 21, you need to defeat the 'Gold Champion'"
+      },
+      {
+        "title": "World 22: Wild West",
+        "icon": "🤠",
+        "description": "",
+        "details": ""
+      },
+      {
+        "title": "World 23: Planet Zorp",
+        "icon": "🪐",
+        "description": "",
+        "details": ""
+      },
+      {
+        "title": "World 24: Wizards Tavern",
+        "icon": "🧙",
+        "description": "",
+        "details": ""
+      },
+      {
+        "title": "World 25: Blossom Isles",
+        "icon": "🌺",
+        "description": "",
+        "details": ""
+      },
+      {
+        "title": "World 26: Techy Isles",
+        "icon": "🖥️",
+        "description": "",
+        "details": ""
+      },
+      {
+        "title": "World 27: Atlantis Cove",
+        "icon": "🔱",
+        "description": "",
+        "details": ""
+      },
+      {
+        "title": "World 28: The Jungle",
+        "icon": "🌴",
+        "description": "",
+        "details": ""
       }
     ]
   }

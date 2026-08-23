@@ -2,10 +2,194 @@
   "common": {
     "codes": [
       {
-        "id": "citymines",
-        "code": "citymines",
+        "id": "goodbyemining",
+        "code": "goodbyemining",
         "hours": 72,
         "isNew": true
+      },
+      {
+        "id": "permamining",
+        "code": "permamining",
+        "hours": 72,
+        "isNew": true
+      },
+      {
+        "id": "dropthatnuke",
+        "code": "dropthatnuke",
+        "hours": 72,
+        "isNew": true
+      },
+      {
+        "id": "clantimeupdate",
+        "code": "clantimeupdate",
+        "hours": 72,
+        "isNew": true
+      },
+      {
+        "id": "seagodsfury",
+        "code": "seagodsfury",
+        "hours": 72,
+        "isNew": true
+      },
+      {
+        "id": "happy4thofjuly",
+        "code": "happy4thofjuly",
+        "hours": 72
+      },
+      {
+        "id": "weloveyou",
+        "code": "weloveyou",
+        "hours": 72
+      },
+      {
+        "id": "summerparty",
+        "code": "summerparty",
+        "hours": 72
+      },
+      {
+        "id": "toolatepatty",
+        "code": "toolatepatty",
+        "hours": 72
+      },
+      {
+        "id": "geckoguy",
+        "code": "geckoguy",
+        "hours": 72
+      },
+      {
+        "id": "harborking",
+        "code": "harborking",
+        "hours": 72
+      },
+      {
+        "id": "techisles",
+        "code": "techisles",
+        "hours": 72
+      },
+      {
+        "id": "weblossom",
+        "code": "weblossom",
+        "hours": 0
+      },
+      {
+        "id": "taverntime",
+        "code": "taverntime",
+        "hours": 72
+      },
+      {
+        "id": "timetobrew",
+        "code": "timetobrew",
+        "hours": 72
+      },
+      {
+        "id": "breathebro",
+        "code": "breathebro",
+        "hours": 72
+      },
+      {
+        "id": "enjoypartone",
+        "code": "enjoypartone",
+        "hours": 72
+      },
+      {
+        "id": "awhcutecarrots",
+        "code": "awhcutecarrots",
+        "hours": 72
+      },
+      {
+        "id": "bunnytimehaha",
+        "code": "bunnytimehaha",
+        "hours": 72
+      },
+      {
+        "id": "musiceventnext",
+        "code": "musiceventnext",
+        "hours": 72
+      },
+      {
+        "id": "slightwaitlol",
+        "code": "slightwaitlol",
+        "hours": 72
+      },
+      {
+        "id": "thenewlab",
+        "code": "thenewlab",
+        "hours": 72
+      },
+      {
+        "id": "chaoticbosses",
+        "code": "chaoticbosses",
+        "hours": 72
+      },
+      {
+        "id": "atomicishere",
+        "code": "atomicishere",
+        "hours": 72
+      },
+      {
+        "id": "dungeonsopen",
+        "code": "dungeonsopen",
+        "hours": 72
+      },
+      {
+        "id": "planetzorp",
+        "code": "planetzorp",
+        "hours": 72
+      },
+      {
+        "id": "massiveqol",
+        "code": "massiveqol",
+        "hours": 72
+      },
+      {
+        "id": "merrychristmas",
+        "code": "merrychristmas",
+        "hours": 72
+      },
+      {
+        "id": "qolupdate",
+        "code": "qolupdate",
+        "hours": 72
+      },
+      {
+        "id": "wildwest",
+        "code": "wildwest",
+        "hours": 72
+      },
+      {
+        "id": "abandonedthemepark",
+        "code": "abandonedthemepark",
+        "hours": 72
+      },
+      {
+        "id": "mansionunderworld",
+        "code": "mansionunderworld",
+        "hours": 72
+      },
+      {
+        "id": "mansionbasement",
+        "code": "mansionbasement",
+        "hours": 72
+      },
+      {
+        "id": "hauntedmansion",
+        "code": "hauntedmansion",
+        "hours": 72
+      },
+      {
+        "id": "hollowsorry",
+        "code": "hollowsorry",
+        "hours": 0
+      },
+      {
+        "id": "spookyseason",
+        "code": "spookyseason",
+        "hours": 72
+      },
+      {
+        "id": "citymines",
+        "code": "citymines",
+        "hours": 72
       },
       {
         "id": "playfulminessorry",
@@ -30,8 +214,7 @@
       {
         "id": "sorryfordelay",
         "code": "sorryfordelay",
-        "hours": 0,
-        "isNew": true
+        "hours": 0
       },
       {
         "id": "pyramids",
@@ -328,7 +511,9 @@
     },
     "descTemplate": "3x boost for %hours% hours",
     "extras": {
-      "citymines": "NEW",
+      "weloveyou": "+5% all stats",
+      "weblossom": "+1% extra stats",
+      "hollowsorry": "2x event strength boost for 2 hours",
       "sorryfordelay": "1 BILLION Mining Bicep Strength!",
       "sorryoops": "strength boost",
       "timetravel": "+5% all stats",
@@ -361,7 +546,9 @@
     },
     "descTemplate": "3x підсилення на %hours% годин",
     "extras": {
-      "citymines": "Новий",
+      "weloveyou": "+5% всі характеристики",
+      "weblossom": "+1% додаткові характеристики",
+      "hollowsorry": "2x сила події на 2 години",
       "sorryfordelay": "1 МІЛЬЯРД ЗІ СИЛИ Біцепсів!",
       "sorryoops": "підсилення сили",
       "timetravel": "+5% всі характеристики",
@@ -394,7 +581,9 @@
     },
     "descTemplate": "3x усиление на %hours% часов",
     "extras": {
-      "citymines": "Новый",
+      "weloveyou": "+5% все характеристики",
+      "weblossom": "+1% дополнительные характеристики",
+      "hollowsorry": "2x сила события на 2 часа",
       "sorryfordelay": "1 МИЛЛИАРДЫ Майнинга Силы Бицепса!",
       "sorryoops": "усиление силы",
       "timetravel": "+5% все характеристики",

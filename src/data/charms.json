@@ -2,6 +2,30 @@
   "common": {
     "charms": [
       {
+        "id": "warfare",
+        "imageUrl": "/assets/warfare_charm.webp",
+        "description": "25% extra wins",
+        "maxStack": 200,
+        "exclusive": true,
+        "category": "charm"
+      },
+      {
+        "id": "crescent",
+        "imageUrl": "/assets/crescent_charm.webp",
+        "description": "30% extra training strength",
+        "maxStack": 150,
+        "exclusive": true,
+        "category": "charm"
+      },
+      {
+        "id": "defender",
+        "imageUrl": "/assets/defender_charm.webp",
+        "description": "10% extra training strength",
+        "maxStack": 100,
+        "exclusive": true,
+        "category": "charm"
+      },
+      {
         "id": "infinite",
         "imageUrl": "https://i.postimg.cc/W4TNJQmF/2025-09-07-09-40-22.png",
         "description": "20% training rep",
@@ -66,8 +90,13 @@
     "retry": "Retry",
     "descTemplate": "Gives %value% to %type%",
     "maxStockLabel": "Max stock:",
+    "maxStackLabel": "Max stack:",
+    "exclusiveLabel": "Exclusive",
     "useOnlyLabel": "use only",
     "names": {
+      "warfare": "Warfare Charm",
+      "crescent": "Crescent Charm",
+      "defender": "Defender Charm",
       "infinite": "Infinite charm",
       "leaderboard": "Leaderboard charm",
       "endless": "Endless charm",
@@ -78,6 +107,9 @@
       "coal": "Coal charm"
     },
     "descriptions": {
+      "warfare": "Applied pet earns you 25% extra wins",
+      "crescent": "Applied pet earns you 30% extra training strength",
+      "defender": "Applied pet earns you 10% extra training strength",
       "infinite": "Gives 20% to training rep",
       "leaderboard": "Gives 18% to training rep",
       "endless": "Gives 15% to training rep",
@@ -94,8 +126,13 @@
     "error": "Помилка завантаження чарів",
     "retry": "Спробувати знову",
     "maxStockLabel": "Макс запас:",
+    "maxStackLabel": "Макс стак:",
+    "exclusiveLabel": "Ексклюзив",
     "useOnlyLabel": "використання",
     "names": {
+      "warfare": "Брелок війни",
+      "crescent": "Брелок місяця",
+      "defender": "Брелок захисника",
       "infinite": "Нескінченні Брелки",
       "leaderboard": "Брелок лідера",
       "endless": "Безкінечні Брелки",
@@ -106,6 +143,9 @@
       "coal": "Вугільні Брелки"
     },
     "descriptions": {
+      "warfare": "Застосований пет дає 25% додаткових перемог",
+      "crescent": "Застосований пет дає 30% додаткової сили тренування",
+      "defender": "Застосований пет дає 10% додаткової сили тренування",
       "infinite": "Дають 20% до тренування",
       "leaderboard": "Дають 18% до тренування",
       "endless": "Дають 15% до тренування",
@@ -123,8 +163,13 @@
     "error": "Ошибка загрузки чар",
     "retry": "Повторить",
     "maxStockLabel": "Макс запас:",
+    "maxStackLabel": "Макс стак:",
+    "exclusiveLabel": "Эксклюзив",
     "useOnlyLabel": "использование",
     "names": {
+      "warfare": "Чарм войны",
+      "crescent": "Чарм месяца",
+      "defender": "Чарм защитника",
       "infinite": "Бесконечные Чармы",
       "leaderboard": "Чармы лидера",
       "endless": "Бесконечные Чары",
@@ -135,6 +180,9 @@
       "coal": "Угольные чармы"
     },
     "descriptions": {
+      "warfare": "Применённый пет даёт 25% дополнительных побед",
+      "crescent": "Применённый пет даёт 30% дополнительной силы тренировки",
+      "defender": "Применённый пет даёт 10% дополнительной силы тренировки",
       "infinite": "Дают 20% к тренировке",
       "leaderboard": "Дают 18% к тренировке",
       "endless": "Дают 15% к тренировке",
