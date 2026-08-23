@@ -23,7 +23,8 @@
   background: var(--surface-2);
   border-radius: 16px;
   box-shadow: 0 10px 40px var(--shadow);
-  overflow: hidden;
+  /* No overflow:hidden here so the unit dropdown can extend past the card;
+     the tinted output block rounds its own bottom corners instead. */
 }
 
 .calc-desc {
@@ -68,6 +69,11 @@
 .calc .input-unit {
   flex-shrink: 0;
   width: 84px;
+  position: relative;
+  z-index: 20;
+}
+.calc .input-unit .select-menu {
+  z-index: 60;
 }
 .calc .input-unit .select-trigger {
   padding: 13px 12px;
@@ -184,6 +190,8 @@
   padding: 28px 24px;
   text-align: center;
   background: color-mix(in srgb, var(--accent) 12%, var(--surface-2));
+  border-bottom-left-radius: 16px;
+  border-bottom-right-radius: 16px;
 }
 .calc-output .label {
   color: var(--text-secondary);
