@@ -32,6 +32,19 @@ export default function TopBar() {
     return () => document.removeEventListener('click', onClick);
   }, []);
 
+  // Lock body scroll + close on Escape while the mobile drawer is open
+  useEffect(() => {
+    if (!mobileOpen) return;
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    const onKey = (e) => e.key === 'Escape' && setMobileOpen(false);
+    document.addEventListener('keydown', onKey);
+    return () => {
+      document.body.style.overflow = prev;
+      document.removeEventListener('keydown', onKey);
+    };
+  }, [mobileOpen]);
+
   return (
     <header className="topbar" ref={barRef}>
       <div className="topbar-inner">
@@ -73,44 +86,75 @@ export default function TopBar() {
         </nav>
 
         <div className="topbar-right">
-          <ThemeToggle />
-          <LangSwitcher />
+          <span className="topbar-controls">
+            <ThemeToggle />
+            <LangSwitcher />
+          </span>
           <button
             className="mobile-btn"
             onClick={() => setMobileOpen((v) => !v)}
             aria-label="Menu"
+            aria-expanded={mobileOpen}
           >
-            <Icon name={mobileOpen ? 'close' : 'menu'} size={22} />
+            <Icon name="menu" size={22} />
           </button>
         </div>
       </div>
 
-      {/* Mobile drawer */}
-      {mobileOpen && (
-        <div className="mobile-drawer">
-          {CATEGORIES.map((cat) => (
-            <div key={cat.id} className="mobile-group">
-              <div className="mobile-group-title">
-                <Icon name={cat.icon} size={16} />
-                <span>{t(cat.label)}</span>
+      {/* Mobile drawer: backdrop + slide-in panel */}
+      <div
+        className={`mobile-overlay${mobileOpen ? ' open' : ''}`}
+        aria-hidden={!mobileOpen}
+      >
+        <button
+          className="mobile-backdrop"
+          aria-label="Close menu"
+          tabIndex={mobileOpen ? 0 : -1}
+          onClick={() => setMobileOpen(false)}
+        />
+        <div className="mobile-panel" role="dialog" aria-modal="true">
+          <div className="mobile-panel-head">
+            <span className="mobile-panel-title">{t({ en: 'Menu', uk: 'Меню', ru: 'Меню' })}</span>
+            <button
+              className="icon-btn"
+              onClick={() => setMobileOpen(false)}
+              aria-label="Close menu"
+            >
+              <Icon name="close" size={22} />
+            </button>
+          </div>
+
+          <div className="mobile-nav">
+            {CATEGORIES.map((cat) => (
+              <div key={cat.id} className="mobile-group">
+                <div className="mobile-group-title">
+                  <Icon name={cat.icon} size={16} />
+                  <span>{t(cat.label)}</span>
+                </div>
+                {cat.pages.map((page) => {
+                  const active = `/${page.slug}` === pathname;
+                  return (
+                    <Link
+                      key={page.slug}
+                      href={`/${page.slug}`}
+                      className={`mobile-link${active ? ' active' : ''}`}
+                      tabIndex={mobileOpen ? 0 : -1}
+                    >
+                      <Icon name={page.icon} size={18} />
+                      <span>{t(page.label)}</span>
+                    </Link>
+                  );
+                })}
               </div>
-              {cat.pages.map((page) => {
-                const active = `/${page.slug}` === pathname;
-                return (
-                  <Link
-                    key={page.slug}
-                    href={`/${page.slug}`}
-                    className={`mobile-link${active ? ' active' : ''}`}
-                  >
-                    <Icon name={page.icon} size={18} />
-                    <span>{t(page.label)}</span>
-                  </Link>
-                );
-              })}
-            </div>
-          ))}
+            ))}
+          </div>
+
+          <div className="mobile-panel-foot">
+            <ThemeToggle />
+            <LangSwitcher />
+          </div>
         </div>
-      )}
+      </div>
     </header>
   );
 }

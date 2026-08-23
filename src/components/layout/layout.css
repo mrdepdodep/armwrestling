@@ -214,6 +214,11 @@
   flex: 1;
   padding-right: 8px;
 }
+.topbar-controls {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
 
 .icon-btn {
   display: inline-flex;
@@ -308,21 +313,85 @@
   display: none;
   align-items: center;
   justify-content: center;
-  width: 38px;
-  height: 38px;
-  border: 1px solid var(--border);
+  width: 40px;
+  height: 40px;
+  border: none;
   border-radius: var(--radius);
   background: transparent;
   color: var(--text);
+  transition: background 0.15s ease;
+}
+.mobile-btn:hover {
+  background: var(--surface-hover);
 }
 
-.mobile-drawer {
-  display: none;
+/* Overlay wraps the backdrop + sliding panel; sits above everything */
+.mobile-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  visibility: hidden;
+  pointer-events: none;
+}
+.mobile-overlay.open {
+  visibility: visible;
+  pointer-events: auto;
+}
+
+.mobile-backdrop {
+  position: absolute;
+  inset: 0;
+  border: none;
+  padding: 0;
+  background: rgba(6, 6, 9, 0.55);
+  backdrop-filter: blur(2px);
+  opacity: 0;
+  transition: opacity 0.25s ease;
+}
+.mobile-overlay.open .mobile-backdrop {
+  opacity: 1;
+}
+
+.mobile-panel {
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 100%;
+  height: 100dvh;
+  width: min(86vw, 340px);
+  display: flex;
+  flex-direction: column;
+  background: var(--surface);
+  box-shadow: -16px 0 44px -12px var(--shadow);
+  transform: translateX(100%);
+  transition: transform 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.mobile-overlay.open .mobile-panel {
+  transform: translateX(0);
+}
+
+.mobile-panel-head {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: var(--topbar-h);
+  padding: 0 12px 0 22px;
+}
+.mobile-panel-title {
+  font-weight: 700;
+  font-size: 1.05em;
+  color: var(--text);
+}
+
+.mobile-nav {
+  flex: 1;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  display: flex;
   flex-direction: column;
   gap: 18px;
-  padding: 18px 24px 24px;
-  border-top: 1px solid var(--border);
-  background: var(--bg);
+  padding: 8px 16px 24px;
 }
 .mobile-group {
   display: flex;
@@ -333,7 +402,7 @@
   display: flex;
   align-items: center;
   gap: 8px;
-  padding: 6px 4px;
+  padding: 6px 8px;
   color: var(--text-secondary);
   font-size: 0.78em;
   font-weight: 600;
@@ -344,19 +413,41 @@
   display: flex;
   align-items: center;
   gap: 12px;
-  padding: 12px 12px;
+  padding: 13px 12px;
   border-radius: var(--radius);
   color: var(--text-secondary);
   font-weight: 500;
   transition: background 0.15s ease, color 0.15s ease;
 }
-.mobile-link:hover {
+.mobile-link:hover,
+.mobile-link:active {
   background: var(--surface-hover);
   color: var(--text);
 }
 .mobile-link.active {
   background: var(--accent);
   color: var(--accent-contrast);
+}
+.mobile-link.active svg {
+  color: var(--accent-contrast);
+}
+
+.mobile-panel-foot {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 20px calc(16px + env(safe-area-inset-bottom));
+  box-shadow: inset 0 1px 0 var(--border);
+}
+/* In the drawer foot the lang menu must open upward, not off-screen */
+.mobile-panel-foot .lang-dd-menu {
+  top: auto;
+  bottom: calc(100% + 6px);
+  transform: translateY(6px);
+}
+.mobile-panel-foot .lang-dd.open .lang-dd-menu {
+  transform: translateY(0);
 }
 
 /* ========== RESPONSIVE ========== */
@@ -367,6 +458,12 @@
   .mobile-btn {
     display: inline-flex;
   }
+  .topbar-controls {
+    display: none;
+  }
+  .topbar-inner {
+    padding: 0 16px;
+  }
   .app-main {
     --gutter: 16px;
   }
@@ -376,7 +473,7 @@
 }
 
 @media (min-width: 861px) {
-  .mobile-drawer {
-    display: none !important;
+  .mobile-overlay {
+    display: none;
   }
 }
