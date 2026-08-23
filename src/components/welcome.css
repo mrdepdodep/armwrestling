@@ -9,6 +9,8 @@
 }
 
 .welcome-inner {
+  /* Inner sizes/spacing are in em, so this scales the whole hero down ~1.3x */
+  font-size: 0.769em;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -29,7 +31,7 @@
 
 .welcome-title {
   margin-top: 26px;
-  font-size: clamp(2.4em, 6vw, 4em);
+  font-size: clamp(2.4em, 4.6vw, 4em);
   font-weight: 800;
   line-height: 1.05;
   letter-spacing: -0.02em;
