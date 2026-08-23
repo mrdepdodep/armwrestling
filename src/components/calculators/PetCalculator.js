@@ -4,9 +4,20 @@ import { useState, useMemo } from 'react';
 import { useLanguage } from '@/lib/i18n/LanguageContext';
 import Icon from '@/components/ui/Icon';
 import Switch from './Switch';
+import Select from './Select';
 import SettingsGroup, { SettingsAccordion } from './SettingsGroup';
 import { tierClass } from './tier';
 import './calculators.css';
+
+// Number-scale suffixes for the pet stat input
+const UNITS = [
+  { value: '1', label: '—', factor: 1 },
+  { value: 'K', label: 'K', factor: 1e3 },
+  { value: 'M', label: 'M', factor: 1e6 },
+  { value: 'B', label: 'B', factor: 1e9 },
+  { value: 'T', label: 'T', factor: 1e12 },
+  { value: 'Qd', label: 'Qd', factor: 1e15 },
+];
 
 const T = {
   en: {
@@ -76,6 +87,27 @@ function levelMult(lvl) {
   return LEVEL_BP[LEVEL_BP.length - 1][1];
 }
 
+// Abbreviate large results with number-scale suffixes (K, M, B, T, Qd, ...)
+const SCALE = ['', 'K', 'M', 'B', 'T', 'Qd', 'Qn', 'Sx', 'Sp', 'Oc', 'No', 'Dc'];
+function formatResult(n) {
+  if (!isFinite(n)) return '∞';
+  const abs = Math.abs(n);
+  if (abs < 1000) {
+    return n.toLocaleString(undefined, {
+      minimumFractionDigits: n % 1 === 0 ? 0 : 2,
+      maximumFractionDigits: 8,
+    });
+  }
+  let tier = Math.floor(Math.log10(abs) / 3);
+  tier = Math.min(tier, SCALE.length - 1);
+  const scaled = n / Math.pow(10, tier * 3);
+  const str = scaled.toLocaleString(undefined, {
+    minimumFractionDigits: 0,
+    maximumFractionDigits: 2,
+  });
+  return `${str}${SCALE[tier]}`;
+}
+
 function OptionRow({ id, label, items, value, onChange }) {
   return (
     <SettingsGroup id={id} label={label}>
@@ -101,6 +133,7 @@ export default function PetCalculator() {
   const t = T[lang] || T.en;
 
   const [raw, setRaw] = useState('');
+  const [unit, setUnit] = useState('1');
   const [slime, setSlime] = useState('slime_furnace');
   const [mutation, setMutation] = useState('mutation_cosmic');
   const [evolution, setEvolution] = useState('evolution_goliath');
@@ -121,8 +154,9 @@ export default function PetCalculator() {
     if (!raw.trim()) return { result: null, error: '' };
     const base = parseFloat(raw);
     if (Number.isNaN(base)) return { result: null, error: t.invalid };
-    return { result: base * multiplier, error: '' };
-  }, [raw, multiplier, t]);
+    const factor = UNITS.find((u) => u.value === unit)?.factor ?? 1;
+    return { result: base * factor * multiplier, error: '' };
+  }, [raw, unit, multiplier, t]);
 
   return (
     <>
@@ -132,8 +166,13 @@ export default function PetCalculator() {
 
           <div className="calc-field">
             <label className="field-label" htmlFor="pet-input">{t.inputLabel}</label>
-            <input id="pet-input" className="input" type="number" step="any"
-              placeholder={t.placeholder} value={raw} onChange={(e) => setRaw(e.target.value)} />
+            <div className="input-row">
+              <input id="pet-input" className="input" type="number" step="any"
+                placeholder={t.placeholder} value={raw} onChange={(e) => setRaw(e.target.value)} />
+              <div className="input-unit">
+                <Select options={UNITS} value={unit} onChange={setUnit} />
+              </div>
+            </div>
           </div>
 
           {error && <div className="calc-error">{error}</div>}
@@ -141,9 +180,7 @@ export default function PetCalculator() {
           <div className="calc-output">
             <div className="label">{t.resultLabel}</div>
             <div className="result-value">
-              {result === null ? '0' : result.toLocaleString(undefined, {
-                minimumFractionDigits: result % 1 === 0 ? 0 : 2, maximumFractionDigits: 8,
-              })}
+              {result === null ? '0' : formatResult(result)}
             </div>
           </div>
         </div>
