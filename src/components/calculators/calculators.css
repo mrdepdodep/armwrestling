@@ -55,6 +55,14 @@
 .calc .input:focus {
   box-shadow: 0 0 0 2px var(--accent);
 }
+/* Compact inline input (e.g. pet level in the settings rows) */
+.calc .input.input-compact {
+  width: 78px;
+  flex-shrink: 0;
+  padding: 8px 10px;
+  font-size: 0.95em;
+  font-variant-numeric: tabular-nums;
+}
 
 /* ===== Custom themed dropdown ===== */
 .select {
