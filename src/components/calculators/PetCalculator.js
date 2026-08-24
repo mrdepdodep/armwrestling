@@ -2,10 +2,10 @@
 
 import { useState, useMemo } from 'react';
 import { useLanguage } from '@/lib/i18n/LanguageContext';
-import Icon from '@/components/ui/Icon';
 import Switch from './Switch';
 import Select from './Select';
 import SettingsGroup, { SettingsAccordion } from './SettingsGroup';
+import CalcSettingsSheet from './CalcSettingsSheet';
 import { tierClass } from './tier';
 import './calculators.css';
 
@@ -185,13 +185,8 @@ export default function PetCalculator() {
           </div>
         </div>
 
-        {/* RIGHT: settings */}
-        <div className="calc-settings">
-          <div className="calc-settings-title">
-            <Icon name="gear" size={16} />
-            {t.settings}
-          </div>
-
+        {/* RIGHT: settings (inline on desktop, gear + bottom sheet on mobile) */}
+        <CalcSettingsSheet title={t.settings}>
           <SettingsAccordion defaultOpen="slime">
             <OptionRow id="slime" label={t.slimes} items={GROUPS.slime} value={slime} onChange={setSlime} />
             <OptionRow id="mutation" label={t.mutation} items={GROUPS.mutation} value={mutation} onChange={setMutation} />
@@ -224,7 +219,7 @@ export default function PetCalculator() {
               </label>
             </SettingsGroup>
           </SettingsAccordion>
-        </div>
+        </CalcSettingsSheet>
       </div>
     </>
   );

@@ -96,7 +96,7 @@ function ListSection({ section, lang }) {
           <div key={it.name} className="boost-row">
             <span className="boost-name">
               {it.img && (
-                <img className="boost-thumb" src={it.img} alt={it.name} loading="lazy" />
+                <img className="boost-thumb" src={it.img} alt={it.name} loading="eager" />
               )}
               {it.name}
             </span>

@@ -27,56 +27,56 @@
       },
       {
         "id": "infinite",
-        "imageUrl": "https://i.postimg.cc/W4TNJQmF/2025-09-07-09-40-22.png",
+        "imageUrl": "/assets/charm_infinite.png",
         "description": "20% training rep",
         "maxStock": 5,
         "category": "charm"
       },
       {
         "id": "leaderboard",
-        "imageUrl": "https://i.postimg.cc/vHwZsg1t/image.png",
+        "imageUrl": "/assets/charm_leaderboard.png",
         "description": "18% training rep",
         "maxStock": 7,
         "category": "charm"
       },
       {
         "id": "endless",
-        "imageUrl": "https://i.postimg.cc/76TqvwwR/2025-09-07-10-00-26.png",
+        "imageUrl": "/assets/charm_endless.png",
         "description": "15% training rep",
         "maxStock": 10,
         "category": "charm"
       },
       {
         "id": "luck",
-        "imageUrl": "https://i.postimg.cc/wB1pJgyB/2025-09-07-10-01-45.png",
+        "imageUrl": "/assets/charm_luck.png",
         "description": "5% luck",
         "maxStock": 16,
         "category": "charm"
       },
       {
         "id": "training",
-        "imageUrl": "https://i.postimg.cc/FRZLQ0bY/telegram-cloud-photo-size-2-5190785500309485773-m.jpg",
+        "imageUrl": "/assets/charm_training.jpg",
         "description": "5% training rep",
         "maxStock": 16,
         "category": "charm"
       },
       {
         "id": "loot",
-        "imageUrl": "https://i.postimg.cc/7LtL8K75/2025-09-07-09-55-01.png",
+        "imageUrl": "/assets/charm_loot.png",
         "description": "5% boss loot",
         "maxStock": 16,
         "category": "charm"
       },
       {
         "id": "winner",
-        "imageUrl": "https://i.postimg.cc/XY8JxjYc/2025-09-07-09-55-06.png",
+        "imageUrl": "/assets/charm_winner.png",
         "description": "5% boss wins",
         "maxStock": 16,
         "category": "charm"
       },
       {
         "id": "coal",
-        "imageUrl": "https://i.postimg.cc/B68nq2cM/2025-09-07-09-54-40.png",
+        "imageUrl": "/assets/charm_coal.png",
         "description": "remove charm",
         "maxStock": 1,
         "category": "charm"

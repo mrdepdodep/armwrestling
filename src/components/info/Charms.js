@@ -26,6 +26,8 @@ export default function Charms() {
                     fill
                     sizes="(max-width: 600px) 50vw, 220px"
                     style={{ objectFit: 'cover' }}
+                    loading="eager"
+                    priority
                   />
                 </div>
               )}

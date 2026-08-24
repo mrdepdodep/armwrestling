@@ -21,11 +21,43 @@ const themeScript = `
 })();
 `;
 
+// Preloaded in the background on first visit so every image on the site is
+// already cached by the browser before the user navigates to the page that uses it.
+const preloadImages = [
+  '/assets/atlantis-slime-bucket.png',
+  '/assets/charm_coal.png',
+  '/assets/charm_endless.png',
+  '/assets/charm_infinite.png',
+  '/assets/charm_leaderboard.png',
+  '/assets/charm_loot.png',
+  '/assets/charm_luck.png',
+  '/assets/charm_training.jpg',
+  '/assets/charm_winner.png',
+  '/assets/crescent_charm.webp',
+  '/assets/defender_charm.webp',
+  '/assets/fishy-slime-bucket.png',
+  '/assets/furnace-slime-bucket.png',
+  '/assets/molten_machine.webp',
+  '/assets/toxic-slime-bucket.png',
+  '/assets/valentines-slime-bucket.png',
+  '/assets/vibe-slime-bucket.png',
+  '/assets/warfare_charm.webp',
+];
+
 export default function RootLayout({ children }) {
   return (
     <html lang="en" data-theme="dark" suppressHydrationWarning>
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
+        {preloadImages.map((src) => (
+          <link
+            key={src}
+            rel="prefetch"
+            as="image"
+            href={src}
+            fetchPriority="low"
+          />
+        ))}
       </head>
       <body>
         <ThemeProvider>

@@ -31,7 +31,7 @@ export default function Codes() {
   return (
     <div className="info">
 
-      <div className="info-grid" style={{ gridTemplateColumns: 'repeat(auto-fill, minmax(240px, 1fr))' }}>
+      <div className="info-grid codes-grid">
         {codes.map((code) => {
           const desc = describe(code);
           return (

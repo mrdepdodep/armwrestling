@@ -2,8 +2,8 @@
 
 import { useState, useMemo } from 'react';
 import { useLanguage } from '@/lib/i18n/LanguageContext';
-import Icon from '@/components/ui/Icon';
 import SettingsGroup, { SettingsAccordion } from './SettingsGroup';
+import CalcSettingsSheet from './CalcSettingsSheet';
 import { tierClass } from './tier';
 import './calculators.css';
 
@@ -127,13 +127,8 @@ export default function GrindCalculator() {
           </div>
         </div>
 
-        {/* RIGHT: settings */}
-        <div className="calc-settings">
-          <div className="calc-settings-title">
-            <Icon name="gear" size={16} />
-            {t.settings}
-          </div>
-
+        {/* RIGHT: settings (inline on desktop, gear + bottom sheet on mobile) */}
+        <CalcSettingsSheet title={t.settings}>
           <SettingsAccordion defaultOpen="tp">
             <ExclusiveRow id="tp" label={t.tp} items={TP} value={tp} onChange={setTp} />
             <ExclusiveRow id="donut" label={`${t.food} — Donut`} items={DONUT} value={donut} onChange={setDonut} />
@@ -165,7 +160,7 @@ export default function GrindCalculator() {
               </div>
             </SettingsGroup>
           </SettingsAccordion>
-        </div>
+        </CalcSettingsSheet>
       </div>
     </>
   );
