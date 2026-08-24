@@ -17,6 +17,11 @@ const UNITS = [
   { value: 'B', label: 'B', factor: 1e9 },
   { value: 'T', label: 'T', factor: 1e12 },
   { value: 'Qd', label: 'Qd', factor: 1e15 },
+  { value: 'sd', label: 'sd', factor: 1e18 },
+  { value: 'st', label: 'st', factor: 1e21 },
+  { value: 'oc', label: 'oc', factor: 1e24 },
+  { value: 'no', label: 'no', factor: 1e27 },
+  { value: 'dc', label: 'dc', factor: 1e30 },
 ];
 
 const T = {
