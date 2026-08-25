@@ -71,8 +71,8 @@ const OTHER = [
 ];
 
 // Abbreviate a big result with K, M, B, T, ... suffixes (e.g. 4000 -> "4K").
-const SCALE = ['', 'K', 'M', 'B', 'T', 'Qd', 'Qn', 'Sx', 'Sp', 'Oc', 'No', 'Dc',
-  'Ud', 'Dd', 'Td', 'Qad', 'Qid', 'Sxd', 'Spd', 'Ocd', 'Nod', 'Vg'];
+// Above 10^12 the suffixes match the grind unit dropdown: qd, sd, st, ocdc, nmdc.
+const SCALE = ['', 'K', 'M', 'B', 'T', 'qd', 'sd', 'st', 'ocdc', 'nmdc'];
 function formatResult(n) {
   if (!isFinite(n)) return '∞';
   const abs = Math.abs(n);
