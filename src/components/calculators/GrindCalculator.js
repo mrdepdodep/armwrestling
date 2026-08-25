@@ -2,10 +2,21 @@
 
 import { useState, useMemo } from 'react';
 import { useLanguage } from '@/lib/i18n/LanguageContext';
+import Select from './Select';
 import SettingsGroup, { SettingsAccordion } from './SettingsGroup';
 import CalcSettingsSheet from './CalcSettingsSheet';
 import { tierClass } from './tier';
 import './calculators.css';
+
+// Number-scale suffixes for the grind value input
+const UNITS = [
+  { value: '1', label: '—', factor: 1 },
+  { value: 'qd', label: 'qd', factor: 1e15 },
+  { value: 'sd', label: 'sd', factor: 1e18 },
+  { value: 'st', label: 'st', factor: 1e21 },
+  { value: 'ocdc', label: 'ocdc', factor: 1e24 },
+  { value: 'nmdc', label: 'nmdc', factor: 1e27 },
+];
 
 const T = {
   en: {
@@ -78,6 +89,7 @@ export default function GrindCalculator() {
   const t = T[lang] || T.en;
 
   const [raw, setRaw] = useState('');
+  const [unit, setUnit] = useState('1');
   const [tp, setTp] = useState(null);
   const [donut, setDonut] = useState(null);
   const [cookie, setCookie] = useState(null);
@@ -98,10 +110,11 @@ export default function GrindCalculator() {
     if (!raw.trim()) return { result: null, error: '' };
     const base = parseFloat(raw);
     if (Number.isNaN(base)) return { result: null, error: t.invalid };
-    let final = base * multiplier;
+    const factor = UNITS.find((u) => u.value === unit)?.factor ?? 1;
+    let final = base * factor * multiplier;
     for (let i = 0; i < friends; i++) final *= 1.15;
     return { result: final, error: '' };
-  }, [raw, multiplier, friends, t]);
+  }, [raw, unit, multiplier, friends, t]);
 
   return (
     <>
@@ -111,8 +124,13 @@ export default function GrindCalculator() {
 
           <div className="calc-field">
             <label className="field-label" htmlFor="grind-input">{t.inputLabel}</label>
-            <input id="grind-input" className="input" type="number" step="any"
-              placeholder={t.placeholder} value={raw} onChange={(e) => setRaw(e.target.value)} />
+            <div className="input-row">
+              <input id="grind-input" className="input" type="number" step="any"
+                placeholder={t.placeholder} value={raw} onChange={(e) => setRaw(e.target.value)} />
+              <div className="input-unit">
+                <Select options={UNITS} value={unit} onChange={setUnit} />
+              </div>
+            </div>
           </div>
 
           {error && <div className="calc-error">{error}</div>}

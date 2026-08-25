@@ -7,3 +7,6 @@
 .env
 .env*.local
 .vercel
+
+# Telegram bot (excluded from the site repo)
+/telegram_bot
