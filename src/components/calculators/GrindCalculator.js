@@ -41,9 +41,11 @@ const T = {
 
 // Exclusive groups: only one active at a time.
 const TP = [
-  { id: 'tp1', label: 'TP1', mult: 1.3, tag: '+30%' },
-  { id: 'tp2', label: 'TP2', mult: 1.6, tag: '+60%' },
-  { id: 'tp3', label: 'TP3', mult: 1.9, tag: '+90%' },
+  { id: 'tp1', label: 'TP1', mult: 1.5, tag: '+50%' },
+  { id: 'tp2', label: 'TP2', mult: 1.75, tag: '+75%' },
+  { id: 'tp3', label: 'TP3', mult: 2.0, tag: '+100%' },
+  { id: 'tp4', label: 'TP4', mult: 2.2, tag: '+120%' },
+  { id: 'tp5', label: 'TP5', mult: 2.5, tag: '+150%' },
 ];
 const DONUT = [
   { id: 'donut1', label: 'Pink Donut L1', mult: 1.05, tag: '+5%' },
@@ -55,14 +57,38 @@ const COOKIE = [
   { id: 'cookie2', label: 'Tasty Cookie', mult: 1.05, tag: '+5%' },
   { id: 'cookie3', label: 'Enchanted Cookie', mult: 1.07, tag: '+7%' },
 ];
+// Exclusive: Strength Star tiers (only one active at a time).
+const STAR = [
+  { id: 'star_normal', label: 'Strength Star', mult: 1.85, tag: '+85%' },
+  { id: 'star_ultra', label: 'Ultra Strength Star', mult: 2.5, tag: '+150%' },
+];
 // Independent toggles.
 const OTHER = [
-  { id: 'time', label: 'Time Boost', mult: 2.7, tag: '+170%' },
+  { id: 'time', label: 'Time Boost', mult: 3.0, tag: '+200%' },
   { id: 'member', label: 'Member', mult: 2.0, tag: '2x' },
   { id: 'premium', label: 'Premium', mult: 1.2, tag: '+20%' },
-  { id: 'strength_star', label: 'Strength Star', mult: 1.5, tag: '+50%' },
   { id: 'sandstorm_event', label: 'Sandstorm Event', mult: 1.3, tag: '2x' },
 ];
+
+// Abbreviate a big result with K, M, B, T, ... suffixes (e.g. 4000 -> "4K").
+const SCALE = ['', 'K', 'M', 'B', 'T', 'Qd', 'Qn', 'Sx', 'Sp', 'Oc', 'No', 'Dc',
+  'Ud', 'Dd', 'Td', 'Qad', 'Qid', 'Sxd', 'Spd', 'Ocd', 'Nod', 'Vg'];
+function formatResult(n) {
+  if (!isFinite(n)) return '∞';
+  const abs = Math.abs(n);
+  if (abs < 1000) {
+    return n.toLocaleString('en-US', {
+      minimumFractionDigits: n % 1 === 0 ? 0 : 2, maximumFractionDigits: 2,
+    });
+  }
+  let tier = Math.floor(Math.log10(abs) / 3);
+  tier = Math.min(tier, SCALE.length - 1);
+  const scaled = n / Math.pow(10, tier * 3);
+  const str = scaled.toLocaleString('en-US', {
+    minimumFractionDigits: 0, maximumFractionDigits: 2,
+  });
+  return `${str}${SCALE[tier]}`;
+}
 
 function ExclusiveRow({ id, label, items, value, onChange }) {
   return (
@@ -93,6 +119,7 @@ export default function GrindCalculator() {
   const [tp, setTp] = useState(null);
   const [donut, setDonut] = useState(null);
   const [cookie, setCookie] = useState(null);
+  const [star, setStar] = useState(null);
   const [other, setOther] = useState({});
   const [friends, setFriends] = useState(8);
 
@@ -102,9 +129,10 @@ export default function GrindCalculator() {
     if (tp) m *= byId(TP, tp);
     if (donut) m *= byId(DONUT, donut);
     if (cookie) m *= byId(COOKIE, cookie);
+    if (star) m *= byId(STAR, star);
     OTHER.forEach((o) => { if (other[o.id]) m *= o.mult; });
     return m;
-  }, [tp, donut, cookie, other]);
+  }, [tp, donut, cookie, star, other]);
 
   const { result, error } = useMemo(() => {
     if (!raw.trim()) return { result: null, error: '' };
@@ -112,7 +140,7 @@ export default function GrindCalculator() {
     if (Number.isNaN(base)) return { result: null, error: t.invalid };
     const factor = UNITS.find((u) => u.value === unit)?.factor ?? 1;
     let final = base * factor * multiplier;
-    for (let i = 0; i < friends; i++) final *= 1.15;
+    for (let i = 0; i < friends; i++) final *= 1.2;
     return { result: final, error: '' };
   }, [raw, unit, multiplier, friends, t]);
 
@@ -138,9 +166,7 @@ export default function GrindCalculator() {
           <div className="calc-output">
             <div className="label">{t.resultLabel}</div>
             <div className="result-value">
-              {result === null ? '0' : result.toLocaleString('uk-UA', {
-                minimumFractionDigits: result % 1 === 0 ? 0 : 2, maximumFractionDigits: 8,
-              })}
+              {result === null ? '0' : formatResult(result)}
             </div>
           </div>
         </div>
@@ -151,6 +177,7 @@ export default function GrindCalculator() {
             <ExclusiveRow id="tp" label={t.tp} items={TP} value={tp} onChange={setTp} />
             <ExclusiveRow id="donut" label={`${t.food} — Donut`} items={DONUT} value={donut} onChange={setDonut} />
             <ExclusiveRow id="cookie" label={`${t.food} — Cookie`} items={COOKIE} value={cookie} onChange={setCookie} />
+            <ExclusiveRow id="star" label="Strength Star" items={STAR} value={star} onChange={setStar} />
 
             <SettingsGroup id="other" label={t.other}>
               <div className="calc-options">
@@ -168,7 +195,7 @@ export default function GrindCalculator() {
               </div>
             </SettingsGroup>
 
-            <SettingsGroup id="friend" label={`${t.friend} (${friends * 15}%)`}>
+            <SettingsGroup id="friend" label={`${t.friend} (${friends * 20}%)`}>
               <div className="counter">
                 <button type="button" className="counter-btn" disabled={friends <= 0}
                   onClick={() => setFriends((f) => Math.max(0, f - 1))}>−</button>
