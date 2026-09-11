@@ -24,18 +24,21 @@ const T = {
     inputLabel: 'Enter Base Value', placeholder: 'Enter your base grind value...',
     resultLabel: 'Final Grind Value', settings: 'Settings', invalid: 'Please enter a valid number',
     tp: 'TP Boosts', food: 'Food Boosts', other: 'Other Boosts', friend: 'Friend Boost',
+    none: 'No boost',
   },
   uk: {
     title: 'Калькулятор Фарму', desc: 'Введіть базове значення фарму та оберіть активні бусти.',
     inputLabel: 'Введіть Базове Значення', placeholder: 'Введіть базове значення фарму...',
     resultLabel: 'Фінальне Значення Фарму', settings: 'Налаштування', invalid: 'Будь ласка, введіть дійсне число',
     tp: 'TP Бусти', food: 'Їжа Бусти', other: 'Інші Бусти', friend: 'Friend Boost',
+    none: 'Без буста',
   },
   ru: {
     title: 'Калькулятор Фарма', desc: 'Введите базовое значение фарма и выберите активные бусты.',
     inputLabel: 'Введите Базовое Значение', placeholder: 'Введите базовое значение фарма...',
     resultLabel: 'Финальное Значение Фарма', settings: 'Настройки', invalid: 'Пожалуйста, введите действительное число',
     tp: 'TP Бусты', food: 'Еда Бусты', other: 'Другие Бусты', friend: 'Friend Boost',
+    none: 'Без буста',
   },
 };
 
@@ -90,10 +93,18 @@ function formatResult(n) {
   return `${str}${SCALE[tier]}`;
 }
 
-function ExclusiveRow({ id, label, items, value, onChange }) {
+function ExclusiveRow({ id, label, items, value, onChange, noneLabel }) {
   return (
     <SettingsGroup id={id} label={label}>
       <div className="calc-options">
+        <button
+          type="button"
+          data-tier
+          className={`option-btn ${tierClass(1)}${value === null ? ' active' : ''}`}
+          onClick={() => onChange(null)}
+        >
+          {noneLabel}
+        </button>
         {items.map((it) => (
           <button
             key={it.id}
@@ -174,10 +185,10 @@ export default function GrindCalculator() {
         {/* RIGHT: settings (inline on desktop, gear + bottom sheet on mobile) */}
         <CalcSettingsSheet title={t.settings}>
           <SettingsAccordion defaultOpen="tp">
-            <ExclusiveRow id="tp" label={t.tp} items={TP} value={tp} onChange={setTp} />
-            <ExclusiveRow id="donut" label={`${t.food} — Donut`} items={DONUT} value={donut} onChange={setDonut} />
-            <ExclusiveRow id="cookie" label={`${t.food} — Cookie`} items={COOKIE} value={cookie} onChange={setCookie} />
-            <ExclusiveRow id="star" label="Strength Star" items={STAR} value={star} onChange={setStar} />
+            <ExclusiveRow id="tp" label={t.tp} items={TP} value={tp} onChange={setTp} noneLabel={t.none} />
+            <ExclusiveRow id="donut" label={`${t.food} — Donut`} items={DONUT} value={donut} onChange={setDonut} noneLabel={t.none} />
+            <ExclusiveRow id="cookie" label={`${t.food} — Cookie`} items={COOKIE} value={cookie} onChange={setCookie} noneLabel={t.none} />
+            <ExclusiveRow id="star" label="Strength Star" items={STAR} value={star} onChange={setStar} noneLabel={t.none} />
 
             <SettingsGroup id="other" label={t.other}>
               <div className="calc-options">

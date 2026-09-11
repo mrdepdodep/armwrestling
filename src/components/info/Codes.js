@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import { useLanguage } from '@/lib/i18n/LanguageContext';
 import Icon from '@/components/ui/Icon';
 import data from '@/data/codes.json';
@@ -9,7 +9,21 @@ import './info.css';
 export default function Codes() {
   const { lang } = useLanguage();
   const t = data[lang] || data.en;
-  const codes = data.common.codes;
+  const staticCodes = data.common.codes;
+
+  // Custom codes added via the Telegram bot (fetched live). Shown on top.
+  const [custom, setCustom] = useState([]);
+  useEffect(() => {
+    let alive = true;
+    fetch('/api/codes')
+      .then((r) => (r.ok ? r.json() : { codes: [] }))
+      .then((d) => { if (alive) setCustom(Array.isArray(d.codes) ? d.codes : []); })
+      .catch(() => {});
+    return () => { alive = false; };
+  }, []);
+
+  const seen = new Set(custom.map((c) => c.code.toLowerCase()));
+  const codes = [...custom, ...staticCodes.filter((c) => !seen.has(c.code.toLowerCase()))];
 
   const [copied, setCopied] = useState(null);
 
@@ -22,6 +36,7 @@ export default function Codes() {
   }, []);
 
   const describe = (code) => {
+    if (code.reward) return code.reward;
     const extra = t.extras?.[code.id];
     if (extra) return extra;
     if (code.hours > 0 && t.descTemplate) return t.descTemplate.replace('%hours%', code.hours);

@@ -20,6 +20,7 @@ const SLIMES = {
     { name: 'Fishy', mult: 4, img: '/assets/fishy-slime-bucket.png' },
     { name: 'Atlantis', mult: 4.5, img: '/assets/atlantis-slime-bucket.png' },
     { name: 'Furnace', mult: 4.8, img: '/assets/furnace-slime-bucket.png' },
+    { name: 'Sandy Trial', mult: 5, img: '/assets/sandy-trial-slime-bucket.png' },
   ],
 };
 

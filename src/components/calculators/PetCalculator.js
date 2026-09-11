@@ -25,18 +25,21 @@ const T = {
     inputLabel: 'Enter Pet Stats', placeholder: "Enter your pet's base stats...",
     resultLabel: 'Final Pet Stats', settings: 'Settings', slimes: 'Slime', mutation: 'Mutation', evolution: 'Evolution & Size',
     type: 'Type', shiny: 'Shiny', level: 'Level', levelHint: 'Your pet level (1–250)', invalid: 'Please enter a valid number',
+    none: 'No boost',
   },
   uk: {
     title: 'Калькулятор Петів', desc: 'Введіть базові стати пета та оберіть модифікатори, щоб побачити фінальні стати.',
     inputLabel: 'Введіть статистику пета', placeholder: 'Введіть базові характеристики...',
     resultLabel: 'Фінальні характеристики', settings: 'Налаштування', slimes: 'Слайм', mutation: 'Мутація', evolution: 'Еволюція та розмір',
     type: 'Тип', shiny: 'Блискучий', level: 'Рівень', levelHint: 'Рівень пета (1–250)', invalid: 'Будь ласка, введіть дійсне число',
+    none: 'Без буста',
   },
   ru: {
     title: 'Калькулятор Питомцев', desc: 'Введите базовые статы питомца и выберите модификаторы, чтобы увидеть финальные статы.',
     inputLabel: 'Введите статистику питомца', placeholder: 'Введите базовые характеристики...',
     resultLabel: 'Финальные характеристики', settings: 'Настройки', slimes: 'Слайм', mutation: 'Мутация', evolution: 'Эволюция и размер',
     type: 'Тип', shiny: 'Блестящий', level: 'Уровень', levelHint: 'Уровень питомца (1–250)', invalid: 'Пожалуйста, введите действительное число',
+    none: 'Без буста',
   },
 };
 
@@ -52,6 +55,7 @@ const GROUPS = {
     { id: 'slime_valentines', name: 'Valentines', mult: 3.6 }, { id: 'slime_toxic', name: 'Toxic', mult: 3.7 },
     { id: 'slime_vibe', name: 'Vibe', mult: 3.8 }, { id: 'slime_fishy', name: 'Fishy', mult: 4.0 },
     { id: 'slime_atlantis', name: 'Atlantis', mult: 4.5 }, { id: 'slime_furnace', name: 'Furnace', mult: 4.8 },
+    { id: 'slime_sandy_trial', name: 'Sandy Trial', mult: 5.0 },
   ],
   mutation: [
     { id: 'mutation_glowing', name: 'Glowing', mult: 1.2 }, { id: 'mutation_rainbow', name: 'Rainbow', mult: 1.35 },
@@ -108,10 +112,18 @@ function formatResult(n) {
   return `${str}${SCALE[tier]}`;
 }
 
-function OptionRow({ id, label, items, value, onChange }) {
+function OptionRow({ id, label, items, value, onChange, noneLabel }) {
   return (
     <SettingsGroup id={id} label={label}>
       <div className="calc-options">
+        <button
+          type="button"
+          data-tier
+          className={`option-btn ${tierClass(1)}${value === null ? ' active' : ''}`}
+          onClick={() => onChange(null)}
+        >
+          {noneLabel}
+        </button>
         {items.map((it) => (
           <button
             key={it.id}
@@ -188,10 +200,10 @@ export default function PetCalculator() {
         {/* RIGHT: settings (inline on desktop, gear + bottom sheet on mobile) */}
         <CalcSettingsSheet title={t.settings}>
           <SettingsAccordion defaultOpen="slime">
-            <OptionRow id="slime" label={t.slimes} items={GROUPS.slime} value={slime} onChange={setSlime} />
-            <OptionRow id="mutation" label={t.mutation} items={GROUPS.mutation} value={mutation} onChange={setMutation} />
-            <OptionRow id="evolution" label={t.evolution} items={GROUPS.evolution} value={evolution} onChange={setEvolution} />
-            <OptionRow id="type" label={t.type} items={GROUPS.type} value={type} onChange={setType} />
+            <OptionRow id="slime" label={t.slimes} items={GROUPS.slime} value={slime} onChange={setSlime} noneLabel={t.none} />
+            <OptionRow id="mutation" label={t.mutation} items={GROUPS.mutation} value={mutation} onChange={setMutation} noneLabel={t.none} />
+            <OptionRow id="evolution" label={t.evolution} items={GROUPS.evolution} value={evolution} onChange={setEvolution} noneLabel={t.none} />
+            <OptionRow id="type" label={t.type} items={GROUPS.type} value={type} onChange={setType} noneLabel={t.none} />
 
             <SettingsGroup id="extra" label="Extra">
               <Switch checked={shiny} onChange={setShiny} name={t.shiny} sub={`x${SHINY}`} />
