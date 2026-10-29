@@ -8,7 +8,7 @@ import './calculators.css';
 const T = {
   en: {
     title: 'Arm Stats Calculator',
-    desc: 'Enter your base arm stats and pick a golden tier to see the maximum stats.',
+    desc: 'Enter your base arm stats, pick a golden tier and void to see the maximum stats.',
     inputLabel: 'If arm base',
     placeholder: 'Enter number...',
     resultLabel: 'Max stats',
@@ -16,10 +16,14 @@ const T = {
     goldenLabel: 'Golden',
     invalid: 'Please enter a valid number',
     golden: (n) => `${n}/5 golden`,
+    noGolden: 'No golden',
+    voidLabel: 'Void',
+    noVoid: 'No void',
+    withVoid: 'Void',
   },
   uk: {
     title: 'Калькулятор Статів Руки',
-    desc: 'Введіть базові стати руки та оберіть рівень golden, щоб побачити максимальні стати.',
+    desc: 'Введіть базові стати руки, оберіть рівень golden та void, щоб побачити максимальні стати.',
     inputLabel: 'Якщо рука без бафів',
     placeholder: 'Введіть число...',
     resultLabel: 'Максимальні стати',
@@ -27,10 +31,14 @@ const T = {
     goldenLabel: 'Golden',
     invalid: 'Будь ласка, введіть дійсне число',
     golden: (n) => `${n}/5 золота`,
+    noGolden: 'Без золота',
+    voidLabel: 'Void',
+    noVoid: 'Без войду',
+    withVoid: 'Войд',
   },
   ru: {
     title: 'Калькулятор Статов Руки',
-    desc: 'Введите базовые статы руки и выберите уровень golden, чтобы увидеть максимум.',
+    desc: 'Введите базовые статы руки, выберите уровень golden и void, чтобы увидеть максимум.',
     inputLabel: 'Если рука без бафов',
     placeholder: 'Введите число...',
     resultLabel: 'Максимальные статы',
@@ -38,6 +46,10 @@ const T = {
     goldenLabel: 'Golden',
     invalid: 'Пожалуйста, введите действительное число',
     golden: (n) => `${n}/5 золотая`,
+    noGolden: 'Без золота',
+    voidLabel: 'Void',
+    noVoid: 'Без войда',
+    withVoid: 'Войд',
   },
 };
 
@@ -48,6 +60,13 @@ const GOLDEN = [
   { n: 4, mult: 1.95 },
   { n: 5, mult: 2.1 },
 ];
+
+// Void is only available after golden and multiplies the golden arm by 4/3: e.g. 1/5 golden x1.5 -> void x2.
+const VOID_MULT = 4 / 3;
+
+function formatMult(m) {
+  return m.toLocaleString('en-US', { maximumFractionDigits: 2 });
+}
 
 function formatNumber(value) {
   return value.toLocaleString('uk-UA', {
@@ -62,13 +81,16 @@ export default function ArmCalculator() {
 
   const [raw, setRaw] = useState('');
   const [mult, setMult] = useState(2.1);
+  const [isVoid, setIsVoid] = useState(false);
+  const hasGolden = mult !== 1;
+  const voidOn = hasGolden && isVoid;
 
   const { result, error } = useMemo(() => {
     if (!raw.trim()) return { result: null, error: '' };
     const base = parseFloat(raw);
     if (Number.isNaN(base)) return { result: null, error: t.invalid };
-    return { result: base * mult, error: '' };
-  }, [raw, mult, t]);
+    return { result: base * mult * (voidOn ? VOID_MULT : 1), error: '' };
+  }, [raw, mult, voidOn, t]);
 
   return (
     <>
@@ -95,9 +117,26 @@ export default function ArmCalculator() {
             <Select
               value={mult}
               onChange={setMult}
-              options={GOLDEN.map((g) => ({ value: g.mult, label: `${t.golden(g.n)} (x${g.mult})` }))}
+              options={[
+                { value: 1, label: t.noGolden },
+                ...GOLDEN.map((g) => ({ value: g.mult, label: `${t.golden(g.n)} (x${g.mult})` })),
+              ]}
             />
           </div>
+
+          {hasGolden && (
+          <div className="calc-field">
+            <label className="field-label">{t.voidLabel}</label>
+            <Select
+              value={isVoid}
+              onChange={setIsVoid}
+              options={[
+                { value: false, label: t.noVoid },
+                { value: true, label: `${t.withVoid} (x${formatMult(mult * VOID_MULT)})` },
+              ]}
+            />
+          </div>
+          )}
 
           {error && <div className="calc-error">{error}</div>}
 
